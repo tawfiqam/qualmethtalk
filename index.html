@@ -1,0 +1,2505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Mixed-Methods in Social Media Research - Detailed Methods</title>
+    <style>
+        :root {
+            --rutgers-red: #cc0033;
+            --rutgers-black: #000000;
+            --rutgers-gray: #5f6a72;
+            --bg-dark: #222;
+            --slide-bg: #ffffff;
+            --code-bg: #f4f4f4;
+            --accent-blue: #005f86;
+            --highlight: #fff3cd;
+            --green: #28a745;
+            --orange: #fd7e14;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', 'Roboto', Helvetica, Arial, sans-serif;
+            background-color: var(--bg-dark);
+            color: #333;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .presentation-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            background: #fff;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--slide-bg);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            padding: 30px 60px;
+            box-sizing: border-box;
+            z-index: 1;
+        }
+
+        .slide.active {
+            opacity: 1;
+            pointer-events: auto;
+            z-index: 10;
+        }
+
+        .header {
+            border-bottom: 3px solid var(--rutgers-red);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            margin: 0;
+            color: var(--rutgers-black);
+        }
+
+        .rutgers-logo {
+            font-family: serif;
+            font-weight: bold;
+            font-size: 1.4rem;
+            color: var(--rutgers-red);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer {
+            margin-top: auto;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: #777;
+        }
+
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        .two-col {
+            display: flex;
+            gap: 30px;
+            height: 100%;
+        }
+
+        .col {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        .box {
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            border-left: 5px solid var(--rutgers-red);
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .method-box {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border: 2px solid var(--accent-blue);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+
+        .critique-box {
+            background: #fff0f0;
+            border: 1px solid #ffcccc;
+            border-left: 5px solid #ff4444;
+            padding: 12px;
+            border-radius: 4px;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+
+        .qual-box {
+            background: #eef;
+            border: 1px solid #ccf;
+            border-left: 5px solid var(--accent-blue);
+            padding: 12px;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+
+        h2 { 
+            font-size: 1.4rem; 
+            color: var(--rutgers-red); 
+            margin-top: 0; 
+            margin-bottom: 8px; 
+        }
+        
+        h3 { 
+            font-size: 1.1rem; 
+            color: var(--accent-blue); 
+            margin-bottom: 5px; 
+            margin-top: 10px; 
+        }
+        
+        h4 {
+            font-size: 1rem;
+            color: #333;
+            margin-bottom: 5px;
+            margin-top: 8px;
+        }
+        
+        p, li { 
+            font-size: 1rem; 
+            line-height: 1.4; 
+            color: #333; 
+            margin: 5px 0;
+        }
+        
+        ul { 
+            padding-left: 20px; 
+            margin-top: 5px;
+        }
+        
+        li { 
+            margin-bottom: 6px; 
+        }
+        
+        strong { 
+            color: var(--rutgers-black); 
+            font-weight: 700; 
+        }
+        
+        .rq-tag {
+            background: var(--rutgers-red);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-right: 8px;
+            display: inline-block;
+        }
+
+        .code-snippet {
+            font-family: 'Courier New', monospace;
+            background: #2d2d2d;
+            color: #eee;
+            padding: 12px;
+            border-radius: 5px;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            margin: 8px 0;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+        
+        .data-table th {
+            background: var(--rutgers-gray);
+            color: white;
+            padding: 8px;
+            text-align: left;
+        }
+        
+        .data-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        .visual-placeholder {
+            background: #f0f0f0;
+            border: 2px dashed #999;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-style: italic;
+        }
+
+        .pipeline-step {
+            background: white;
+            border: 2px solid var(--accent-blue);
+            border-radius: 8px;
+            padding: 10px;
+            margin: 8px 0;
+            position: relative;
+        }
+
+        .pipeline-step::after {
+            content: "↓";
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.5rem;
+            color: var(--rutgers-red);
+        }
+
+        .pipeline-step:last-child::after {
+            display: none;
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 20px;
+            right: 40px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            background: rgba(255,255,255,0.95);
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            z-index: 1000;
+        }
+
+        .controls button {
+            background: var(--rutgers-red);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .controls button:hover:not(:disabled) {
+            background: #a00028;
+            transform: scale(1.05);
+        }
+
+        .controls button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        #slideCounter {
+            font-weight: bold;
+            font-size: 1rem;
+            color: var(--rutgers-black);
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .flowchart {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            margin: 10px 0;
+        }
+
+        .flow-item {
+            background: white;
+            border: 2px solid var(--accent-blue);
+            border-radius: 6px;
+            padding: 8px;
+            text-align: center;
+            position: relative;
+        }
+
+        .flow-item::after {
+            content: "▼";
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--rutgers-red);
+            font-size: 1.2rem;
+        }
+
+        .flow-item:last-child::after {
+            display: none;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 10px 0;
+        }
+
+        .comparison-item {
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            padding: 12px;
+        }
+
+        .comparison-item.highlight {
+            border-color: var(--rutgers-red);
+            background: #fff5f5;
+        }
+
+        .key-concept {
+            background: var(--highlight);
+            border-left: 4px solid var(--orange);
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 4px;
+        }
+
+        .formula {
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 10px;
+            font-family: 'Courier New', monospace;
+            text-align: center;
+            margin: 10px 0;
+            font-size: 0.95rem;
+        }
+
+        /* Custom scrollbar */
+        .content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .content::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .content::-webkit-scrollbar-thumb {
+            background: var(--rutgers-red);
+            border-radius: 4px;
+        }
+
+        .content::-webkit-scrollbar-thumb:hover {
+            background: #a00028;
+        }
+    </style>
+	<script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+	<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>	
+</head>
+<body>
+
+<div class="presentation-container">
+
+    <div class="slide active">
+        <div class="header">
+            <h1>Advanced Mixed-Methods in Social Media Research</h1>
+            <div class="rutgers-logo">Rutgers</div>
+        </div>
+        <div class="content" style="justify-content: center; text-align: center;">
+            <div style="margin-top: 80px;">
+                <h2 style="font-size: 2.5rem; margin-bottom: 20px;">Detailed Methodological Walkthrough</h2>
+                <p style="font-size: 1.3rem; margin: 15px 0;">Four Papers on Social Media Analysis</p>
+                <div style="margin-top: 40px; font-size: 1.2rem;">
+                    <p><strong>Tawfiq Ammari</strong></p>
+                    <p>Assistant Professor</p>
+                    <p>Rutgers School of Communication and Information</p>
+                </div>
+                <div style="margin-top: 60px; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+                    <span style="background: #eee; padding: 8px 16px; border-radius: 20px;">BERTopic Modeling</span>
+                    <span style="background: #eee; padding: 8px 16px; border-radius: 20px;">Qualitative Coding</span>
+                    <span style="background: #eee; padding: 8px 16px; border-radius: 20px;">Classifiers</span>
+                    <span style="background: #eee; padding: 8px 16px; border-radius: 20px;">Time Series Analysis</span>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <span>PhD Methods Presentation</span>
+            <span>45 Minutes</span>
+        </div>
+    </div>
+
+    <div class="slide">
+        <div class="header">
+            <h1>Introduction to Topic Modeling (LDA)</h1>
+            <div class="rutgers-logo">Rutgers</div>
+        </div>
+        <div class="content">
+            <div class="two-col">
+                <div class="col">
+                    <h3>What is Topic Modeling?</h3>
+                    <div class="box">
+                        <p><strong>Definition:</strong> An unsupervised machine learning technique that automatically discovers "abstract topics" occurring in a collection of documents.</p>
+                        <p>It answers the question: <em>"What are these documents talking about?"</em> without humans reading every single one.</p>
+                    </div>
+
+                    <h3>Latent Dirichlet Allocation (LDA)</h3>
+                    <div class="method-box">
+                        <p><strong>Core Idea:</strong> A generative probabilistic model based on two assumptions:</p>
+                        <ul>
+                            <li><strong>1. Documents are mixtures of topics</strong> (e.g., a document is 70% Politics, 30% Economy).</li>
+                            <li><strong>2. Topics are mixtures of words</strong> (e.g., "Politics" contains <em>vote, election, senate</em>).</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="key-concept">
+                        <strong>The Reverse Engineering Intuition:</strong> We only see the documents. LDA reverses the generative process to infer the hidden topics and the mixtures that created the data.
+                    </div>
+                </div>
+                
+                <div class="col">
+                    <h3>The Probabilistic Model</h3>
+                    <div class="visual-placeholder" style="min-height: 200px;">
+                         {/* Placeholder for LDA Plate Notation Diagram */}
+                        <img src="lda_plate_diagram.png" alt="LDA Plate Notation: Document -> Topic -> Word" style="max-width: 100%; height: auto;" />
+                        <p style="font-size: 0.85rem; color: #666; margin-top: 10px;">Plate notation representing probabilistic dependencies</p>
+                    </div>
+
+                    <div class="formula">
+                        P(word | doc) = Σ P(word | topic) × P(topic | doc)
+                    </div>
+
+                    <div class="critique-box">
+                        <strong>Limitation:</strong> LDA relies on "Bag-of-Words" (word frequency). It ignores sentence structure and context—which is why we later move to BERTopic for short texts.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <span>Topic Modeling Fundamentals</span>
+            <span>Slide 2 / 22</span>
+        </div>
+    </div>
+
+    <div class="slide">
+        <div class="header">
+            <h1>Visualizing Distributions & Vectorization</h1>
+            <div class="rutgers-logo">Rutgers</div>
+        </div>
+        <div class="content">
+            <div class="two-col">
+                <div class="col">
+                    <h3>1. Visualizing Topic Distributions</h3>
+                    <p>LDA outputs a probability distribution for every document across all <em>K</em> topics.</p>
+                    <div class="box">
+                        <p><strong>Example Tweet:</strong> "Inflation is rising, stocks are down."</p>
+                        <p><strong>Topic Distribution (K=3):</strong></p>
+                        <div style="display: flex; align-items: center; gap: 10px; margin-top: 10px;">
+                            <div style="flex: 0 0 70%; background: #cc0033; color: white; padding: 5px; font-size: 0.8rem;">Topic A (Economy): 70%</div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px; margin-top: 5px;">
+                            <div style="flex: 0 0 20%; background: #005f86; color: white; padding: 5px; font-size: 0.8rem;">Topic B (Politics): 20%</div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px; margin-top: 5px;">
+                            <div style="flex: 0 0 10%; background: #5f6a72; color: white; padding: 5px; font-size: 0.8rem;">Topic C (Sports): 10%</div>
+                        </div>
+                    </div>
+
+                    <h3>2. Vectorization</h3>
+                    <div class="key-concept">
+                        <p><strong>From Text to Vector:</strong> This distribution <em>is</em> the vector representation of the document.</p>
+                        <p>We compress high-dimensional text (10,000+ words) into a dense, low-dimensional vector (e.g., 50 topics).</p>
+                    </div>
+                </div>
+                
+                <div class="col">
+                    <h3>Code: Extracting the Vector</h3>
+                    <div class="code-snippet">
+# Gensim LDA Vectorization Example
+# Convert new text to Bag-of-Words
+new_doc_bow = id2word.doc2bow(text.split())
+
+# Get topic distribution (The Vector)
+vector = lda_model.get_document_topics(new_doc_bow)
+
+print(vector)
+# Output (Sparse): [(0, 0.70), (1, 0.20), (2, 0.10)]
+# As Dense Vector: [0.70, 0.20, 0.10]
+                    </div>
+
+                    <h3>Why Vectorize?</h3>
+                    <div class="flowchart">
+                        <div class="flow-item">
+                            <strong>1. Dimensionality Reduction</strong><br/>
+                            <small>Manageable feature set for models</small>
+                        </div>
+                        <div class="flow-item">
+                            <strong>2. Similarity Search</strong><br/>
+                            <small>Find documents with similar topic mixtures (Cosine Similarity)</small>
+                        </div>
+                        <div class="flow-item">
+                            <strong>3. Supervised Learning Features</strong><br/>
+                            <small>Use topic vectors as X input for Classifiers (See Slide 7)</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <span>From Models to Vectors</span>
+            <span>Slide 3 / 22</span>
+        </div>
+    </div>
+
+    <div class="slide">
+        <div class="header">
+            <h1>BERTopic: Why and How</h1>
+            <div class="rutgers-logo">Rutgers</div>
+        </div>
+        <div class="content">
+            <div class="two-col">
+                <div class="col">
+                    <h3>Why BERTopic over LDA?</h3>
+                    <div class="box">
+                        <p><strong>Short Text Challenge:</strong> Social media posts are brief (e.g., 280 char tweets). Traditional LDA struggles because:</p>
+                        <ul>
+                            <li>Requires document-level word co-occurrence</li>
+                            <li>Bag-of-words loses context</li>
+                            <li>Produces less interpretable topics for short texts</li>
+                        </ul>
+                    </div>
+                    <div class="key-concept">
+                        <strong>Key Insight:</strong> BERTopic uses contextualized embeddings that capture semantic meaning even in short texts. Each word's meaning depends on surrounding words.
+                    </div>
+
+                    <h3>The Pipeline</h3>
+                    <div class="flowchart">
+                        <div class="flow-item">
+                            <strong>1. BERT Embeddings</strong><br/>
+                            <small>Convert text → dense vectors capturing semantic meaning</small>
+                        </div>
+                        <div class="flow-item">
+                            <strong>2. UMAP Reduction</strong><br/>
+                            <small>Reduce 768 dimensions → ~5 dimensions (preserve structure)</small>
+                        </div>
+                        <div class="flow-item">
+                            <strong>3. HDBSCAN Clustering</strong><br/>
+                            <small>Find density-based clusters (topics)</small>
+                        </div>
+                        <div class="flow-item">
+                            <strong>4. c-TF-IDF</strong><br/>
+                            <small>Extract representative words per topic</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <h3>Code Example</h3>
+                    <div class="code-snippet">
+from bertopic import BERTopic
+from umap import UMAP
+from hdbscan import HDBSCAN
+
+# Initialize components
+umap_model = UMAP(
+    n_neighbors=15,
+    n_components=5,
+    min_dist=0.0,
+    metric='cosine'
+)
+
+hdbscan_model = HDBSCAN(
+    min_cluster_size=115,
+    metric='euclidean',
+    prediction_data=True
+)
+
+# Build model
+topic_model = BERTopic(
+    umap_model=umap_model,
+    hdbscan_model=hdbscan_model,
+    language="english"
+)
+
+# Fit to data
+topics, probs = topic_model.fit_transform(
+    documents
+)
+                    </div>
+
+                        <img src="BERT.png" alt="Graph showing Coherence Scores" style="max-width: 100%; height: auto;">
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <span>Methodology Deep Dive - BERTopic</span>
+            <span>Slide 4 / 22</span>
+        </div>
+    </div>
+
+    <!-- Slide 3: Model Selection Process -->
+    <div class="slide">
+        <div class="header">
+            <h1>Selecting the Best Topic Model</h1>
+            <div class="rutgers-logo">Rutgers</div>
+        </div>
+        <div class="content">
+            <h3>The Coherence Metric (C_v)</h3>
+            <div class="key-concept">
+                <p><strong>What is Coherence?</strong> Measures how semantically similar the top words in a topic are to each other. Higher coherence = more interpretable topics.</p>
+                <div class="formula">
+                    C_v = (2/T(T-1)) × Σ cosine_similarity(word_i, word_j)
+                </div>
+                <p>where T = number of top words per topic (typically 10-15)</p>
+            </div>
+
+            <div class="two-col">
+                <div class="col">
+                    <h3>Hyperparameter Tuning Process</h3>
+                    <p>We trained <strong>25 model variants</strong> for Foster Care paper, varying <code>min_cluster_size</code> from 15 to 255:</p>
+                    
+                    <div class="comparison-grid">
+                        <div class="comparison-item">
+                            <h4>Too Small (minimum cluster size=15)</h4>
+                            <p>• 200+ micro-topics</p>
+                            <p>• Low coherence (0.45)</p>
+                            <p>• Too granular/noisy</p>
+                        </div>
+                        <div class="comparison-item">
+                            <h4>Too Large (minimum cluster size=255)</h4>
+                            <p>• 20 mega-topics</p>
+                            <p>• Low coherence (0.52)</p>
+                            <p>• Too generic/merged</p>
+                        </div>
+                        <div class="comparison-item highlight">
+                            <h4>✓ Optimal Fostercare (minimum cluster size=45)</h4>
+                            <p>• 147 topics → 122 after filtering</p>
+                            <p>• <strong>Max coherence (0.601)</strong></p>
+                            <p>• Balanced granularity</p>
+                        </div>
+                        <div class="comparison-item highlight">
+                            <h4>✓ Zambia (minimum cluster size=115)</h4>
+                            <p>• 103 topics</p>
+                            <p>• <strong>Max coherence (0.72)</strong></p>
+                            <p>• Context-specific</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                        <img src="topBERT.png" alt="Graph showing Coherence Scores" style="max-width: 100%; height: auto;">
+
+                    <h3>Cross-Study Comparison</h3>
+                    <table class="data-table">
+                        <tr>
+                            <th>Study</th>
+                            <th>Variants Tested</th>
+                            <th>Optimal Size</th>
+                            <th>Final Topics</th>
+                            <th>Best C_v</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Foster Care</strong></td>
+                            <td>25</td>
+                            <td>45</td>
+                            <td>147 → 122</td>
+                            <td>0.601</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Zambia Poverty</strong></td>
+                            <td>18</td>
+                            <td>115</td>
+                            <td>103</td>
+                            <td>0.72</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Zambia Temporal</strong></td>
+                            <td>18</td>
+                            <td>115</td>
+                            <td>103</td>
+                            <td>0.72</td>
+                        </tr>
+                    </table>
+
+                    <div class="critique-box">
+                        <strong>Note:</strong> Larger cluster sizes → Fewer topics. The "best" model balances coherence with practical topic count for qualitative analysis.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <span>Model Selection Strategy</span>
+            <span>Slide 5 / 22</span>
+        </div>
+    </div>
+
+    <!-- Slide 4: Qualitative Analysis Process -->
+    <div class="slide">
+        <div class="header">
+            <h1>Qualitative Coding: Three-Round Process</h1>
+            <div class="rutgers-logo">Rutgers</div>
+        </div>
+        <div class="content">
+            <div class="two-col">
+                <div class="col">
+                    <h3>Why Qualitative Analysis?</h3>
+                    <div class="box">
+                        <p><strong>Computational methods surface patterns.</strong> Humans provide meaning.</p>
+                        <ul>
+                            <li>Topic models give keywords, not interpretation</li>
+                            <li>Domain expertise essential for filtering noise</li>
+                            <li>Reading actual posts reveals nuanced themes</li>
+                        </ul>
+                    </div>
+
+                    <h3>The Three-Round Protocol</h3>
+                    <div class="method-box">
+                        <h4>Round 1: Initial Exploration (25 tweets/topic)</h4>
+                        <p><strong>Goal:</strong> Develop initial codebook</p>
+                        <ul>
+                            <li>Each coder reads independently</li>
+                            <li>Takes detailed notes in spreadsheet</li>
+                            <li>Identifies emergent themes</li>
+                            <li>Team meets to compare & consolidate</li>
+                        </ul>
+                        <p><em>Example:</em> Raw words "foster, adopt, child" → Multiple possible topics</p>
+                    </div>
+
+                    <div class="method-box">
+                        <h4>Round 2: Testing & Refinement (50 tweets/topic)</h4>
+                        <p><strong>Goal:</strong> Test applicability of codebook</p>
+                        <ul>
+                            <li>Apply initial codes to new samples</li>
+                            <li>Identify ambiguous cases</li>
+                            <li>Refine category definitions</li>
+                            <li>Split overly broad categories</li>
+                        </ul>
+                        <p><em>Example:</em> "Foster" split into: "Becoming foster parent," "Permanency," "Needs of foster children"</p>
+                    </div>
+
+                    <div class="method-box">
+                        <h4>Round 3: Finalization (25 tweets/topic)</h4>
+                        <p><strong>Goal:</strong> Reach consensus on final labels</p>
+                        <ul>
+                            <li>Review edge cases</li>
+							<li>Finalize topic names & descriptions</li>
+                            <li>Calculate inter-rater reliability(Optional)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <h3>Sample Size Calculation</h3>
+                    <div class="box">
+                        <p><strong>Foster Care Example:</strong></p>
+                        <p>122 topics × 100 comments = <strong>12,200 comments coded</strong></p>
+                        <p>(across 3 rounds: 25 + 50 + 25 per topic)</p>
+                    </div>
+
+                    <div class="visual-placeholder" style="min-height: 180px;">
+					<div id="timeline_root" style="width: 100%; height: 220px;"></div>
+                    </div>
+
+                    <h3>HCI Best Practice Note</h3>
+                    <div class="qual-box">
+                        <p><strong>Consensus over Kappa:</strong> Following McDonald et al. (2019), we prioritize coder consensus over mechanical reliability scores.</p>
+                        <p><strong>Why?</strong> Kappa penalizes legitimate disagreement. In complex social phenomena, discussion and consensus better captures nuance than forcing agreement.</p>
+                        <p><strong>Our approach:</strong> Extended discussions until consensus reached on all topic names.</p>
+                    </div>
+
+                    <h3>Example Topic Evolution</h3>
+                    <table class="data-table" style="font-size: 0.85rem;">
+                        <tr>
+                            <th>Round</th>
+                            <th>Label</th>
+                            <th>Status</th>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>"Food Issues"</td>
+                            <td>Too vague</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>"Food Insecurity" / "Agricultural Production"</td>
+                            <td>Split, but still unclear</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td><strong>"Food Systems"</strong></td>
+                            <td>✓ Final (encompasses both)</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <span>Qualitative Methods</span>
+            <span>Slide 6 / 22</span>
+        </div>
+    </div>
+
+    <!-- Slide 5: Classifiers & Log-Likelihood Ratios -->
+    <div class="slide">
+        <div class="header">
+            <h1>Classifiers & Log-Likelihood Ratios</h1>
+            <div class="rutgers-logo">Rutgers</div>
+        </div>
+        <div class="content">
+            <div class="two-col">
+                <div class="col">
+                    <h3>Use Case 1: Binary Logistic Regression (Foster Care)</h3>
+                    <div class="method-box">
+                        <p><strong>Goal:</strong> Predict cross-posting users</p>
+                        <p><strong>Features:</strong> Topic weights (122 topics)</p>
+                        <p><strong>Target:</strong> Cross-poster vs. single-community poster</p>
+                    </div>
+
+                    <div class="box">
+                        <h4>Challenge: Class Imbalance</h4>
+                        <p>Only 106 cross-posters out of 30,372 users (0.35%)</p>
+                        <p><strong>Solution:</strong> Random undersampling to 50:50 ratio</p>
+                    </div>
+
+                    <div class="code-snippet" style="font-size: 0.75rem;">
+from sklearn.linear_model import LogisticRegression
+from imblearn.under_sampling import RandomUnderSampler
+
+# Balance classes
+rus = RandomUnderSampler(random_state=42)
+X_resampled, y_resampled = rus.fit_resample(
+    topic_weights, cross_poster_labels
+)
+
+# Train classifier
+clf = LogisticRegression(
+    C=100, penalty='l2', 
+    solver='lbfgs', max_iter=100
+)
+clf.fit(X_resampled, y_resampled)
+
+# Results
+# Abuse → Foster: AUC = 0.84
+# Foster → Abuse: AUC = 0.72
+                    </div>
+
+                    <h4>Top Predictive Topics (Abuse → Foster)</h4>
+                    <ul style="font-size: 0.9rem;">
+                        <li><strong>CASA role</strong> (OR: 1.06×10³⁹, p<0.0001)</li>
+                        <li><strong>Suicide ideation</strong> (OR: 7.03×10³², p<0.0001)</li>
+                        <li><strong>Language & boundaries</strong> (OR: 2.32×10²³, p<0.0001)</li>
+                    </ul>
+                </div>
+
+                <div class="col">
+                    <h3>Use Case 2: Log-Likelihood Ratio (LLR)</h3>
+                    <div class="method-box">
+                        <p><strong>Goal:</strong> Identify words that distinguish time periods or groups</p>
+                        <p><strong>Formula:</strong></p>
+                        <div class="formula" style="font-size: 0.85rem;">
+                            LLR = 2 × Σ O_ij × log(O_ij / E_ij)
+                        </div>
+                        <p>where O = observed freq, E = expected freq</p>
+                    </div>
+
+                    <div class="box">
+                        <h4>Interpretation</h4>
+                        <ul>
+                            <li><strong>Positive LLR:</strong> Word more common AFTER event</li>
+                            <li><strong>Negative LLR:</strong> Word more common BEFORE event</li>
+                            <li><strong>Near zero:</strong> No difference</li>
+                        </ul>
+                    </div>
+
+                    <h3>Example: COVID-19 in Lusaka</h3>
+                    <table class="data-table" style="font-size: 0.85rem;">
+                        <tr>
+                            <th>Word</th>
+                            <th>LLR</th>
+                            <th>Period</th>
+                        </tr>
+                        <tr>
+                            <td>cholera</td>
+                            <td style="color: blue;">−2.1</td>
+                            <td>Before (health planning)</td>
+                        </tr>
+                        <tr>
+                            <td>multistakeholder</td>
+                            <td style="color: blue;">−5.41</td>
+                            <td>Before (systematic)</td>
+                        </tr>
+                        <tr>
+                            <td>elimination</td>
+                            <td style="color: blue;">−6.5</td>
+                            <td>Before (prevention)</td>
+                        </tr>
+                        <tr>
+                            <td>systems</td>
+                            <td style="color: blue;">−9.43</td>
+                            <td>Before (infrastructure)</td>
+                        </tr>
+                        <tr>
+                            <td>safe</td>
+                            <td style="color: red;">+8.11</td>
+                            <td>After (crisis response)</td>
+                        </tr>
+                        <tr>
+                            <td>mask</td>
+                            <td style="color: red;">+2.96</td>
+                            <td>After (protection)</td>
+                        </tr>
+                        <tr>
+                            <td>tests</td>
+                            <td style="color: red;">+2.96</td>
+                            <td>After (detection)</td>
+                        </tr>
+                        <tr>
+                            <td>covid19</td>
+                            <td style="color: red;">+2.17</td>
+                            <td>After (pandemic)</td>
+                        </tr>
+                    </table>
+
+                    <div class="key-concept">
+                        <strong>Insight:</strong> Shift from systematic health planning → immediate crisis management
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <span>Classification & Linguistic Analysis</span>
+            <span>Slide 7 / 22</span>
+        </div>
+    </div>
+
+    <!-- Slide 6: Time Series & Change-Point Detection -->
+    <div class="slide">
+        <div class="header">
+            <h1>Time Series Analysis & PELT Algorithm</h1>
+            <div class="rutgers-logo">Rutgers</div>
+        </div>
+        <div class="content">
+            <div class="two-col">
+                <div class="col">
+                    <h3>PELT: Pruned Exact Linear Time</h3>
+                    <div class="method-box">
+                        <p><strong>What it does:</strong> Detects points where statistical properties change (mean, variance, distribution)</p>
+                        <p><strong>Why it's good:</strong> Objective, replicable, finds optimal breakpoints without pre-specifying dates</p>
+                    </div>
+
+                    <div class="code-snippet" style="font-size: 0.75rem;">
+import ruptures as rpt
+from scipy.stats import mannkendall
+
+# Prepare time series
+ts = daily_topic_counts['public_health']
+
+# PELT detection
+model = "rbf"  # Radial basis function
+algo = rpt.Pelt(model=model).fit(ts)
+result = algo.predict(pen=10)
+
+# Validate with Mann-Kendall test
+before = ts[:result[0]]
+after = ts[result[0]:]
+
+trend_before = mannkendall(before)
+trend_after = mannkendall(after)
+
+print(f"Break at day {result[0]}")
+print(f"Trend after: {trend_after.trend}")
+print(f"p-value: {trend_after.p}")
+                    </div>
+
+                    <h3>Validation: Mann-Kendall Test</h3>
+                    <div class="box">
+                        <p><strong>Purpose:</strong> Confirm that detected break represents a significant trend change</p>
+                        <p><strong>Null hypothesis:</strong> No monotonic trend</p>
+                        <p><strong>Our threshold:</strong> p < 0.10</p>
+                    </div>
+
+                        <img src="pubhealthPELT.png" alt="Graph showing Coherence Scores" style="max-width: 100%; height: auto; max-height: 350px; display: block; margin: 10px auto;">
+                </div>
+
+                <div class="col">
+                    <h3>Operationalizing "Durable Discourse"</h3>
+                    <div class="key-concept">
+                        <p><strong>Definition:</strong> Discourse that persists beyond initial event-driven attention spikes</p>
+                        <p><strong>Criteria:</strong></p>
+                        <ol>
+                            <li><strong>Temporal persistence:</strong> 60+ days elevated engagement</li>
+                            <li><strong>Thematic coherence:</strong> Maintained semantic consistency</li>
+                            <li><strong>Structural signature:</strong> Significant shift + extended regime + vocabulary transformation</li>
+                        </ol>
+                    </div>
+
+                    <h3>Two Case Studies</h3>
+                    
+                    <div class="comparison-grid">
+                        <div class="comparison-item">
+                            <h4>Ephemeral: COVID-19 (Lusaka)</h4>
+                            <p><strong>Change-point:</strong> March 26, 2020</p>
+                            <p><strong>Peak:</strong> Mid-April</p>
+                            <p><strong>Decline:</strong> June 14 (p=0.02)</p>
+                            <p><strong>Duration:</strong> <60 days</p>
+                            <p><strong>Vocabulary:</strong> cholera → mask, tests</p>
+                            <p style="color: var(--orange);"><strong>→ Acute crisis response</strong></p>
+                        </div>
+                        
+                        <div class="comparison-item highlight">
+                            <h4>Durable: Geothermal (Southern)</h4>
+                            <p><strong>Change-point:</strong> March 29, 2020</p>
+                            <p><strong>Trend:</strong> Downward (p=0.006)</p>
+                            <p><strong>Duration:</strong> 6+ months sustained</p>
+                            <p><strong>Vocabulary:</strong> tourism (resorts, victoria) → resources (legal, zambezi, loan, banks)</p>
+                            <p style="color: var(--green);"><strong>→ Structural reorientation</strong></p>
+                        </div>
+                    </div>
+
+                        <img src="infrastructurePELT.png" alt="Graph showing Coherence Scores" style="max-width: 100%; height: auto; max-height: 350px; display: block; margin: 10px auto;">
+
+                    <div class="critique-box">
+                        <strong>Limitation:</strong> PELT is purely algorithmic. Must qualitatively validate that "break" reflects meaningful discourse shift, not spam/bots.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <span>Temporal Analysis Methods</span>
+            <span>Slide 8 / 22</span>
+        </div>
+    </div>
+
+    <!-- Slide 7: Research Questions - Papers 1 & 2 -->
+    <div class="slide">
+        <div class="header">
+            <h1>Connecting Methods to Research Questions (Papers 1-2)</h1>
+            <div class="rutgers-logo">Rutgers</div>
+        </div>
+        <div class="content">
+            <h3>Paper 1: Foster Care & Abuse Survivors (Reddit, 10 years)</h3>
+            <div class="box">
+                <p><strong>Context:</strong> 259,350 posts from 30,372 users across 6 subreddits (r/fosterit, r/fosterparents, r/fostercare + r/adultsurvivors, r/ChildAbuseDiscussion, r/cps)</p>
+                <p><strong>Key finding:</strong> 106 cross-posters (0.35%) but heavily contribute to both communities</p>
+            </div>
+
+            <div class="two-col">
+                <div class="col">
+                    <div class="method-box">
+                        <p><span class="rq-tag">RQ1a/b</span> <strong>Topical predictors & themes at intersection</strong></p>
+                        <h4>Methods Pipeline:</h4>
+                        <ol>
+                            <li><strong>BERTopic:</strong> 147 topics (min_cluster_size=45)</li>
+                            <li><strong>Qualitative coding:</strong> 3 rounds, 12,200 comments</li>
+                            <li><strong>Logistic regression:</strong> Predict cross-posters
+                                <ul>
+                                    <li>Features: Topic weights (122 after filtering)</li>
+                                    <li>Random undersampling for balance</li>
+                                    <li>10-fold cross-validation</li>
+                                </ul>
+                            </li>
+                            <li><strong>LLR analysis:</strong> Identify distinctive vocabulary</li>
+                        </ol>
+                        
+                        <h4>Key Results:</h4>
+                        <ul>
+                            <li>AUC = 0.84 (Abuse → Foster)</li>
+                            <li>AUC = 0.72 (Foster → Abuse)</li>
+                            <li>Top topics: CASA role, Suicide ideation, Language & boundaries</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="method-box">
+                        <p><span class="rq-tag">RQ2a/b/c</span> <strong>Roles, behaviors, reception of cross-posters</strong></p>
+                        <h4>Methods Pipeline:</h4>
+                        <ol>
+                            <li><strong>Qualitative role analysis:</strong> 
+                                <ul>
+                                    <li>950 comments from 25 users</li>
+                                    <li>Identified 4 social roles + 3 online roles</li>
+                                </ul>
+                            </li>
+                            <li><strong>Propensity Score Matching:</strong>
+                                <ul>
+                                    <li>Covariates: Topic weights</li>
+                                    <li>1:1 nearest neighbor matching</li>
+                                    <li>Logit propensity scores</li>
+                                </ul>
+                            </li>
+                            <li><strong>Platform signals:</strong> Karma, replies, tenure</li>
+                            <li><strong>LIWC psychometrics:</strong> 72 linguistic features</li>
+                        </ol>
+
+                        <h4>Key Results:</h4>
+                        <ul>
+                            <li>Cross-posters: +59 karma (p<0.01), +6.89 replies (p<0.05)</li>
+                            <li>+13 months tenure on average</li>
+                            <li>Higher use of "we" (in-group), "they" (out-group awareness)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Paper 2: Zambia Poverty Prediction (Twitter/X, 2019-2021)</h3>
+            <div class="two-col">
+                <div class="col">
+                    <div class="method-box">
+                        <p><span class="rq-tag">RQ1</span> <strong>Topic features articulate wealth differences</strong></p>
+                        <h4>Methods:</h4>
+                        <ul>
+                            <li>BERTopic: 103 topics → 7 development topics</li>
+                            <li>Spatial mapping to DHS village clusters</li>
+                            <li>ANOVA + Games-Howell post-hoc tests</li>
+                            <li>LLR for wealth tertile comparison</li>
+                        </ul>
+                        <h4>Finding:</h4>
+                        <p>Poorer villages: concrete, local (food systems, mining). Wealthier: abstract policy discourse.</p>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="method-box">
+                        <p><span class="rq-tag">RQ2</span> <strong>Parsimonious, explainable wealth prediction</strong></p>
+                        <h4>Methods:</h4>
+                        <ul>
+                            <li>ML regression: RF, XGBoost, LightGBM</li>
+                            <li>7 dev topics: R² = 61.0%</li>
+                            <li>All 103 topics: R² = 64.6%</li>
+                            <li>SHAP values for feature importance</li>
+                            <li>Partial dependence plots</li>
+                        </ul>
+                    </div>
+
+                    <div class="method-box">
+                        <p><span class="rq-tag">RQ3</span> <strong>Imputation method comparison</strong></p>
+                        <h4>Methods:</h4>
+                        <ul>
+                            <li>Kriging vs. zero-fill vs. median</li>
+                            <li>Simulated missingness (10-50%)</li>
+                            <li>Kriging: 15% better accuracy</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <span>RQ Mapping - Papers 1 & 2</span>
+            <span>Slide 9 / 22</span>
+        </div>
+    </div>
+
+    <!-- Slide 8: Research Questions - Papers 3 & 4 -->
+    <div class="slide">
+        <div class="header">
+            <h1>Connecting Methods to Research Questions (Papers 3-4)</h1>
+            <div class="rutgers-logo">Rutgers</div>
+        </div>
+        <div class="content">
+            <h3>Paper 3: Zambia Spatiotemporal Discourse (Twitter/X, 32 months)</h3>
+            <div class="box">
+                <p><strong>Core contribution:</strong> Operationalizing "durable discourse" - distinguishing ephemeral vs. lasting engagement</p>
+            </div>
+
+            <div class="method-box">
+                <p><strong>Methods Pipeline (No explicit RQs, but clear analytical goals):</strong></p>
+                <ol>
+                    <li><strong>BERTopic:</strong> Same 103 topics as Paper 2</li>
+                    <li><strong>PELT change-point detection:</strong> Identify breaks in time series
+                        <ul>
+                            <li>Applied to each topic × region combination</li>
+                            <li>Penalty parameter tuning (β=10 worked best)</li>
+                        </ul>
+                    </li>
+                    <li><strong>Mann-Kendall test:</strong> Validate trend significance (p<0.10)</li>
+                    <li><strong>LLR analysis:</strong> Compare vocabulary before/after breaks</li>
+                    <li><strong>Qualitative analysis:</strong> Contextualize breaks with real events
+                        <ul>
+                            <li>COVID-19 lockdowns in Lusaka</li>
+                            <li>Kalahari GeoEnergy project in Southern Province</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+
+            <h4>Key Findings by Durability Type:</h4>
+            <div class="comparison-grid">
+                <div class="comparison-item">
+                    <h4>Ephemeral: COVID-19 in Lusaka</h4>
+                    <p><strong>Change-point:</strong> March 26, 2020 (upward, p=0.07)</p>
+                    <p><strong>Peak:</strong> Mid-April 2020</p>
+                    <p><strong>Decline:</strong> June 14, 2020 (downward, p=0.02)</p>
+                    <p><strong>Duration:</strong> <60 days elevated</p>
+                    <p><strong>Before:</strong> cholera , elimination, multistakeholder, systems</p>
+                    <p><strong>After:</strong> safe (+8.11), mask, tests, covid19 (+2.17)</p>
+                    <p style="margin-top: 10px; padding: 8px; background: #fff0f0; border-radius: 4px;">
+                        <strong>Interpretation:</strong> Acute crisis displaced systematic health planning. Rapid attention decay typical of emergency response phase.
+                    </p>
+                </div>
+
+                <div class="comparison-item highlight">
+                    <h4>Durable: Geothermal Project (Southern)</h4>
+                    <p><strong>Change-point:</strong> March 29, 2020 (downward, p=0.006)</p>
+                    <p><strong>Duration:</strong> 6+ months sustained discourse</p>
+                    <p><strong>Before:</strong> resorts, victoria, hotel, natureatbest, leadership</p>
+                    <p><strong>After:</strong> resources, decisions, banks, legal, zambezi, loan</p>
+                    <p style="margin-top: 10px; padding: 8px; background: #f0fff0; border-radius: 4px;">
+                        <strong>Interpretation:</strong> Infrastructure intervention catalyzed lasting reorientation from tourism → resource governance. Persistent engagement with development/environmental concerns.
+                    </p>
+                </div>
+            </div>
+
+            <h3>Paper 4: Foster Care COVID-19 Impact (Reddit)</h3>
+            <div class="method-box">
+                <p><strong>Focus:</strong> How concerns changed pre/post COVID-19 (March 11, 2020)</p>
+                <h4>Methods:</h4>
+                <ul>
+                    <li><strong>LDA topic modeling</strong> (not BERTopic - earlier work)</li>
+                    <li><strong>Chow F-test:</strong> Structural breaks in topic prevalence</li>
+                    <li><strong>Qualitative analysis:</strong> Coded 2,800 comments (14 topics × 100 × 2 time periods)</li>
+                </ul>
+                
+                <h4>Three Topics with Significant Changes:</h4>
+                <table class="data-table">
+                    <tr>
+                        <th>Topic</th>
+                        <th>Direction</th>
+                        <th>F-stat</th>
+                        <th>p-value</th>
+                        <th>Qualitative Change</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Becoming foster parent</strong></td>
+                        <td style="color: green;">↑</td>
+                        <td>5.75</td>
+                        <td>0.02</td>
+                        <td>Excitement over approval → Anxiety over delays</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Activities</strong></td>
+                        <td style="color: green;">↑</td>
+                        <td>10.61</td>
+                        <td>0.001</td>
+                        <td>Everyday activities → Lockdown-specific activities</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Permanency</strong></td>
+                        <td style="color: red;">↓</td>
+                        <td>9.46</td>
+                        <td>0.003</td>
+                        <td>Best interest of child → Separation concerns</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="footer">
+            <span>RQ Mapping - Papers 3 & 4</span>
+            <span>Slide 10 / 22</span>
+        </div>
+    </div>
+
+    <!-- Slide 9: Key Methodological Insights -->
+    <div class="slide">
+        <div class="header">
+            <h1>Key Methodological Insights Across Papers</h1>
+            <div class="rutgers-logo">Rutgers</div>
+        </div>
+        <div class="content">
+            <h3>1. When to Use BERTopic vs. LDA</h3>
+            <div class="comparison-grid">
+                <div class="comparison-item">
+                    <h4>Use LDA When:</h4>
+                    <ul>
+                        <li>Need probability distributions</li>
+                        <li>Document-level topic mixing important</li>
+                        <li>Working with longer documents</li>
+                        <li>Comparing to established baseline</li>
+                    </ul>
+                    <p><em>Example: Paper 4 (earlier work, building on precedent)</em></p>
+                </div>
+                <div class="comparison-item highlight">
+                    <h4>Use BERTopic When:</h4>
+                    <ul>
+                        <li>Working with short texts (tweets, posts)</li>
+                        <li>Need contextual understanding</li>
+                        <li>Want interpretable topics quickly</li>
+                        <li>Handling informal language</li>
+                    </ul>
+                    <p><em>Example: Papers 1-3 (Reddit posts, tweets)</em></p>
+                </div>
+            </div>
+
+            <h3>2. Importance of Qualitative Analysis</h3>
+            <div class="key-concept">
+                <p><strong>Computational methods surface patterns. Humans provide meaning.</strong></p>
+                <ul>
+                    <li>Topic models give keywords like "foster, adopt, child" - could mean adoption joy OR trauma</li>
+                    <li>Reading actual posts revealed nuanced distinctions (e.g., "Becoming foster parent" vs. "Permanency concerns")</li>
+                    <li>Domain expertise essential: We removed 25 boilerplate topics (automated responses, flairs)</li>
+                    <li>Consensus-based coding > mechanical reliability scores</li>
+                </ul>
+            </div>
+
+            <h3>3. Temporal Analysis Requires Multiple Validation Metrics</h3>
+            <div class="box">
+                <p><strong>Why can't we just use PELT alone?</strong></p>
+                <p>PELT detects statistical breaks, but can't distinguish:</p>
+                <ul>
+                    <li>Real discourse shift vs. bot spam</li>
+                    <li>Volume change vs. thematic reorientation</li>
+                    <li>Ephemeral attention spike vs. durable engagement</li>
+                </ul>
+            </div>
+
+            <div class="method-box">
+                <h4>Our Multi-Metric Validation Pipeline:</h4>
+                <ol>
+                    <li><strong>PELT:</strong> Objective change-point detection</li>
+                    <li><strong>Mann-Kendall:</strong> Confirm trend significance</li>
+                    <li><strong>LLR:</strong> Verify vocabulary transformation (not just volume!)</li>
+                    <li><strong>Duration measure:</strong> 60-day threshold for durability</li>
+                    <li><strong>Qualitative:</strong> Ground in real events (COVID, infrastructure projects)</li>
+                </ol>
+                <p><strong>Result:</strong> Can distinguish acute crises (ephemeral) from structural changes (durable)</p>
+            </div>
+
+            <h3>4. Platform Signals as Validation</h3>
+            <div class="two-col">
+                <div class="col">
+                    <h4>What We Measured (Foster Care)</h4>
+                    <ul>
+                        <li><strong>Karma score:</strong> Community validation</li>
+                        <li><strong>Number of replies:</strong> Engagement depth</li>
+                        <li><strong>Tenure:</strong> Experience/commitment</li>
+                        <li><strong>Comment length:</strong> Effort investment</li>
+                    </ul>
+                </div>
+                <div class="col">
+                    <h4>Why This Matters</h4>
+                    <p>Cross-posters received:</p>
+                    <ul>
+                        <li>+59 karma points (p<0.01)</li>
+                        <li>+6.89 replies (p<0.05)</li>
+                        <li>+13 months tenure</li>
+                    </ul>
+                    <p><strong>Interpretation:</strong> Community validates their contributions as valuable → Confirms boundary-spanning role hypothesis</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <span>Cross-Study Insights</span>
+            <span>Slide 11 / 22</span>
+        </div>
+    </div>
+
+    <!-- Slide 10: Overview - Four Papers -->
+    <div class="slide">
+        <div class="header">
+            <h1>Study Overview: Four Interconnected Papers</h1>
+            <div class="rutgers-logo">Rutgers</div>
+        </div>
+        <div class="content">
+            <h3>Research Context</h3>
+            <div class="box">
+                <p><strong>Central Theme:</strong> Understanding vulnerable populations through social media discourse</p>
+                <p><strong>Geographic Contexts:</strong> United States (Reddit) and Zambia (Twitter/X)</p>
+                <p><strong>Time Span:</strong> 10+ years of Reddit data, 32 months of georeferenced tweets</p>
+            </div>
+
+            <div class="two-col">
+                <div class="col">
+                    <div class="method-box">
+                        <h4>Paper 1: Foster Care & Abuse Intersection</h4>
+                        <p><strong>Platform:</strong> Reddit (6 subreddits)</p>
+                        <p><strong>Data:</strong> 259,350 posts from 30,372 users</p>
+                        <p><strong>Finding:</strong> 106 cross-posters (0.35%) serve boundary-spanning roles</p>
+                        <p><strong>Methods:</strong> BERTopic + Classifiers + Qualitative coding</p>
+                    </div>
+
+                    <div class="method-box">
+                        <h4>Paper 2: Zambia Poverty Prediction</h4>
+                        <p><strong>Platform:</strong> Twitter/X (2019-2021)</p>
+                        <p><strong>Data:</strong> 2.1M tweets, 20,235 geotagged</p>
+                        <p><strong>Finding:</strong> 7 topics predict wealth (R²=61%)</p>
+                        <p><strong>Methods:</strong> BERTopic + ML regression + Spatial analysis</p>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="method-box">
+                        <h4>Paper 3: Zambia Spatiotemporal Discourse</h4>
+                        <p><strong>Platform:</strong> Twitter/X (32 months)</p>
+                        <p><strong>Data:</strong> Same corpus as Paper 2</p>
+                        <p><strong>Finding:</strong> COVID ephemeral (<60 days), Infrastructure durable (6+ months)</p>
+                        <p><strong>Methods:</strong> BERTopic + PELT + LLR + Qualitative validation</p>
+                    </div>
+
+                    <div class="method-box">
+                        <h4>Paper 4: Foster Care During COVID-19</h4>
+                        <p><strong>Platform:</strong> Reddit (foster care subreddits)</p>
+                        <p><strong>Data:</strong> Pre/post March 2020 comparison</p>
+                        <p><strong>Finding:</strong> 3 topics significantly changed</p>
+                        <p><strong>Methods:</strong> LDA + Chow F-test + Qualitative analysis</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="key-concept">
+                <strong>Methodological Contribution:</strong> Demonstrating mixed-methods pipeline (computational filtering + statistical testing + interpretive qualitative analysis) across multiple contexts
+            </div>
+        </div>
+        <div class="footer">
+            <span>Study Overview</span>
+            <span>Slide 12 / 22</span>
+        </div>
+    </div>
+
+    <!-- Slide 11: BERTopic vs LDA Decision -->
+    <div class="slide">
+        <div class="header">
+            <h1>Method Selection: BERTopic vs. LDA</h1>
+            <div class="rutgers-logo">Rutgers</div>
+        </div>
+        <div class="content">
+            <h3>Why Different Methods for Different Papers?</h3>
+            
+            <div class="comparison-grid">
+                <div class="comparison-item">
+                    <h4>Papers 1-3: BERTopic</h4>
+                    <p><strong>Context:</strong> Short social media texts (tweets, Reddit comments)</p>
+                    <p><strong>Rationale:</strong></p>
+                    <ul style="font-size: 0.9rem;">
+                        <li>Better handles <280 character texts</li>
+                        <li>Contextual embeddings capture meaning</li>
+                        <li>More interpretable topics for mixed methods</li>
+                        <li>No need to pre-specify topic count</li>
+                    </ul>
+                </div>
+
+                <div class="comparison-item">
+                    <h4>Paper 4: LDA</h4>
+                    <p><strong>Context:</strong> Earlier work (2021), building on precedent</p>
+                    <p><strong>Rationale:</strong></p>
+                    <ul style="font-size: 0.9rem;">
+                        <li>Established baseline in field</li>
+                        <li>Probability distributions needed for Chow test</li>
+                        <li>Reddit comments longer than tweets</li>
+                        <li>Temporal comparison focus</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="method-box">
+                <h4>General Decision Framework</h4>
+                <table class="data-table">
+                    <tr>
+                        <th>Criterion</th>
+                        <th>Use LDA</th>
+                        <th>Use BERTopic</th>
+                    </tr>
+                    <tr>
+                        <td>Text length</td>
+                        <td>Longer documents (>100 words)</td>
+                        <td>Short texts (<100 words)</td>
+                    </tr>
+                    <tr>
+                        <td>Need probability distributions?</td>
+                        <td>✓ Yes</td>
+                        <td>✗ No (uses distance-based clustering)</td>
+                    </tr>
+                    <tr>
+                        <td>Context matters?</td>
+                        <td>Bag-of-words sufficient</td>
+                        <td>✓ Contextualized embeddings essential</td>
+                    </tr>
+                    <tr>
+                        <td>Interpretability priority</td>
+                        <td>Moderate</td>
+                        <td>✓ High (c-TF-IDF)</td>
+                    </tr>
+                    <tr>
+                        <td>Pre-specify K topics?</td>
+                        <td>✓ Required</td>
+                        <td>✗ Auto-determined by HDBSCAN</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="key-concept">
+                <strong>Practical Tip:</strong> For mixed-methods research, BERTopic's interpretable topics reduce qualitative coding burden. LDA topics often require more human interpretation to make sense.
+            </div>
+        </div>
+        <div class="footer">
+            <span>Method Selection</span>
+            <span>Slide 13 / 22</span>
+        </div>
+    </div>
+
+    <!-- Slide 12: Qualitative-Quantitative Integration -->
+    <div class="slide">
+        <div class="header">
+            <h1>Integrating Qualitative and Quantitative Methods</h1>
+            <div class="rutgers-logo">Rutgers</div>
+        </div>
+        <div class="content">
+            <h3>The Mixed-Methods Pipeline</h3>
+            
+            <div class="pipeline-diagram">
+                <div class="pipeline-step">
+                    <strong>Step 1: Computational Filtering</strong>
+                    <p>BERTopic identifies 103-147 potential topics from millions of posts</p>
+                    <p style="font-size: 0.85rem; color: #666;">→ Reduces overwhelming data to manageable categories</p>
+                </div>
+
+                <div class="pipeline-step">
+                    <strong>Step 2: Qualitative Interpretation</strong>
+                    <p>Human coders read 100 posts per topic, assign meaningful labels</p>
+                    <p style="font-size: 0.85rem; color: #666;">→ Filters noise (25 boilerplate topics removed), adds context</p>
+                </div>
+
+                <div class="pipeline-step">
+                    <strong>Step 3: Statistical Testing</strong>
+                    <p>Classifiers, LLR, PELT identify significant patterns</p>
+                    <p style="font-size: 0.85rem; color: #666;">→ Validates which patterns are meaningful vs. random</p>
+                </div>
+
+                <div class="pipeline-step">
+                    <strong>Step 4: Validation & Triangulation</strong>
+                    <p>Platform signals (karma, replies), LIWC, qualitative examples</p>
+                    <p style="font-size: 0.85rem; color: #666;">→ Confirms findings aren't artifacts of method</p>
+                </div>
+            </div>
+
+            <div class="two-col">
+                <div class="col">
+                    <div class="qual-box">
+                        <h4>Why Not Just Computational?</h4>
+                        <ul style="font-size: 0.9rem;">
+                            <li>Topic models give word lists, not meaning</li>
+                            <li>"foster, adopt, child" could be 5 different topics</li>
+                            <li>Can't distinguish substantive from noise</li>
+                            <li>Miss cultural context and nuance</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="qual-box">
+                        <h4>Why Not Just Qualitative?</h4>
+                        <ul style="font-size: 0.9rem;">
+                            <li>Can't manually read 2.1M tweets</li>
+                            <li>Human biases in what we notice</li>
+                            <li>Hard to quantify prevalence/trends</li>
+                            <li>Limited generalizability claims</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="key-concept">
+                <strong>Core Principle:</strong> Computational methods <em>surface</em> patterns. Humans <em>interpret</em> meaning. Statistical tests <em>validate</em> significance. Together = robust findings.
+            </div>
+        </div>
+        <div class="footer">
+            <span>Mixed-Methods Integration</span>
+            <span>Slide 14 / 22</span>
+        </div>
+    </div>
+
+    <!-- Slide 13: Validation Strategies Across Papers -->
+    <div class="slide">
+        <div class="header">
+            <h1>Validation Strategies: Ensuring Robustness</h1>
+            <div class="rutgers-logo">Rutgers</div>
+        </div>
+        <div class="content">
+            <h3>Multi-Method Validation Approach</h3>
+
+            <div class="method-box">
+                <h4>1. Inter-Rater Reliability (Foster Care)</h4>
+                <div class="two-col">
+                    <div class="col">
+                        <p><strong>Kappa = 0.85</strong> (strong agreement)</p>
+                        <p>But we prioritize <strong>consensus</strong> over mechanical reliability</p>
+                    </div>
+                    <div class="col">
+                        <p><strong>Rationale:</strong> McDonald et al. (2019) - Complex social phenomena require discussion, not forced agreement</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="method-box">
+                <h4>2. Platform Signals Validation (Foster Care)</h4>
+                <table class="data-table">
+                    <tr>
+                        <th>Metric</th>
+                        <th>Cross-Posters</th>
+                        <th>Single-Community</th>
+                        <th>Difference</th>
+                        <th>p-value</th>
+                    </tr>
+                    <tr>
+                        <td>Karma Score</td>
+                        <td>125.3</td>
+                        <td>66.2</td>
+                        <td>+59.1</td>
+                        <td><0.01</td>
+                    </tr>
+                    <tr>
+                        <td>Replies per Comment</td>
+                        <td>15.6</td>
+                        <td>8.7</td>
+                        <td>+6.89</td>
+                        <td><0.05</td>
+                    </tr>
+                    <tr>
+                        <td>Tenure (months)</td>
+                        <td>31.4</td>
+                        <td>18.2</td>
+                        <td>+13.2</td>
+                        <td><0.01</td>
+                    </tr>
+                </table>
+                <p style="margin-top: 10px;"><strong>Interpretation:</strong> Community validates contributions → confirms boundary-spanning role isn't just statistical artifact</p>
+            </div>
+
+            <div class="method-box">
+                <h4>3. Multi-Metric Temporal Validation (Zambia)</h4>
+                <div class="comparison-grid">
+                    <div class="comparison-item">
+                        <p><strong>PELT</strong></p>
+                        <p style="font-size: 0.85rem;">Objective change-point detection</p>
+                    </div>
+                    <div class="comparison-item">
+                        <p><strong>Mann-Kendall</strong></p>
+                        <p style="font-size: 0.85rem;">Trend significance (p<0.10)</p>
+                    </div>
+                    <div class="comparison-item">
+                        <p><strong>LLR</strong></p>
+                        <p style="font-size: 0.85rem;">Vocabulary transformation</p>
+                    </div>
+                    <div class="comparison-item">
+                        <p><strong>Qualitative</strong></p>
+                        <p style="font-size: 0.85rem;">Grounded in real events</p>
+                    </div>
+                </div>
+                <p style="margin-top: 10px;"><strong>Why all four?</strong> Each addresses different validity threat. Together = robust evidence of discourse shift.</p>
+            </div>
+
+            <div class="method-box">
+                <h4>4. Model Performance Validation (Zambia Poverty)</h4>
+                <ul style="font-size: 0.9rem;">
+                    <li><strong>Out-of-sample testing:</strong> 80/20 train-test split</li>
+                    <li><strong>Spatial cross-validation:</strong> Leave-one-province-out</li>
+                    <li><strong>SHAP values:</strong> Explain model predictions</li>
+                    <li><strong>Partial dependence:</strong> Visualize feature effects</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer">
+            <span>Validation Strategies</span>
+            <span>Slide 15 / 22</span>
+        </div>
+    </div>
+
+    <!-- Slide 14: Practical Implementation Tips -->
+    <div class="slide">
+        <div class="header">
+            <h1>Practical Implementation: Tips & Tricks</h1>
+            <div class="rutgers-logo">Rutgers</div>
+        </div>
+        <div class="content">
+            <h3>Lessons Learned Across Four Papers</h3>
+
+            <div class="method-box">
+                <h4>1. Hyperparameter Tuning Takes Time</h4>
+                <div class="two-col">
+                    <div class="col">
+                        <p><strong>Foster Care:</strong> Tested 25 model variants</p>
+                        <p><strong>Time investment:</strong> ~3-4 days of compute</p>
+                        <p><strong>Worth it?</strong> Yes - difference between 0.45 and 0.601 coherence</p>
+                    </div>
+                    <div class="col">
+                        <p><strong>Tip:</strong> Start with broad range (15-255), then narrow in</p>
+                        <p><strong>Tip:</strong> Use smaller sample for quick iteration, then full corpus for final</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="method-box">
+                <h4>2. Qualitative Coding Resources</h4>
+                <table class="data-table" style="font-size: 0.85rem;">
+                    <tr>
+                        <th>Study</th>
+                        <th>Topics</th>
+                        <th>Comments/Topic</th>
+                        <th>Total Coded</th>
+                        <th>Time (2 coders)</th>
+                    </tr>
+                    <tr>
+                        <td>Foster Care</td>
+                        <td>122</td>
+                        <td>100</td>
+                        <td>12,200</td>
+                        <td>~6 weeks</td>
+                    </tr>
+                    <tr>
+                        <td>Zambia</td>
+                        <td>103</td>
+                        <td>100</td>
+                        <td>10,300</td>
+                        <td>~5 weeks</td>
+                    </tr>
+                    <tr>
+                        <td>Foster COVID</td>
+                        <td>14</td>
+                        <td>200</td>
+                        <td>2,800</td>
+                        <td>~2 weeks</td>
+                    </tr>
+                </table>
+                <p style="margin-top: 10px;"><strong>Tip:</strong> Budget 1-2 months for qualitative phase. Can't rush consensus.</p>
+            </div>
+
+            <div class="method-box">
+                <h4>3. Dealing with Imbalanced Classes</h4>
+                <ul style="font-size: 0.9rem;">
+                    <li><strong>Problem:</strong> 106 cross-posters vs. 30,266 single-community (0.35%)</li>
+                    <li><strong>Solution:</strong> Random undersampling to 50:50</li>
+                    <li><strong>Alternative tried:</strong> SMOTE (synthetic minority oversampling) - performed worse</li>
+                    <li><strong>Validation:</strong> 10-fold CV to ensure stability</li>
+                </ul>
+            </div>
+
+            <div class="method-box">
+                <h4>4. Handling Missing Spatial Data</h4>
+                <ul style="font-size: 0.9rem;">
+                    <li><strong>Challenge:</strong> Only 1% of tweets geotagged</li>
+                    <li><strong>Tested:</strong> Zero-fill, median imputation, kriging</li>
+                    <li><strong>Winner:</strong> Rounded kriging (15% better accuracy)</li>
+                    <li><strong>Bonus:</strong> Provides uncertainty estimates → adaptive sampling</li>
+                </ul>
+            </div>
+
+            <div class="critique-box">
+                <strong>Common Pitfall:</strong> Don't remove "outlier" topics too quickly. What looks like noise might be rare but important phenomena (e.g., LGBTQ issues in foster care).
+            </div>
+        </div>
+        <div class="footer">
+            <span>Implementation Tips</span>
+            <span>Slide 16 / 22</span>
+        </div>
+    </div>
+
+    <!-- Slide 15: Data Limitations -->
+    <div class="slide">
+        <div class="header">
+            <h1>Data Limitations</h1>
+            <div class="rutgers-logo">Rutgers</div>
+        </div>
+        <div class="content">
+            <h3>Critical Limitations to Acknowledge</h3>
+            
+            <div class="two-col">
+                <div class="col">
+                    <div class="critique-box">
+                        <h4>1. Platform Bias</h4>
+                        <p><strong>Reality:</strong> Reddit/Twitter users ≠ general population</p>
+                        <ul style="font-size: 0.9rem;">
+                            <li>Younger, urban, educated, male-skewed</li>
+                            <li>Digital access required (excludes poorest)</li>
+                            <li>English-language dominant</li>
+                        </ul>
+                        <p style="margin-top: 10px;"><strong>Example:</strong> Zambia - Only 20,235 geotagged tweets from 2.1M total</p>
+                        <p><strong>Example:</strong> Foster Care - Only 106 cross-posters identified</p>
+                    </div>
+
+                    <div class="critique-box">
+                        <h4>2. Language Limitations</h4>
+                        <ul style="font-size: 0.9rem;">
+                            <li><strong>Zambia:</strong> 92% English tweets (8% Bemba, Nyanja, etc.)</li>
+                            <li>Missing non-English discourse entirely</li>
+                            <li>Auto-translation may lose cultural nuance</li>
+                            <li>Code-switching not well handled</li>
+                        </ul>
+                    </div>
+
+                    <div class="critique-box">
+                        <h4>3. Temporal/Contextual Gaps</h4>
+                        <ul style="font-size: 0.9rem;">
+                            <li><strong>Paper 4:</strong> Data ended May 2020 → missed George Floyd protests (May 25)</li>
+                            <li>Post-API era: Increasingly expensive to collect data</li>
+                            <li>Platform policy changes affect data availability</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="critique-box">
+                        <h4>4. Sociodemographic Blind Spots</h4>
+                        <ul style="font-size: 0.9rem;">
+                            <li>Pseudonymous platforms → no verified demographics</li>
+                            <li>Can't confirm claimed identities (foster parent vs. caseworker)</li>
+                            <li>Sampling biases hard to quantify</li>
+                            <li>May overrepresent certain voices</li>
+                        </ul>
+                    </div>
+
+                    <div class="critique-box">
+                        <h4>5. Causal Inference Limitations</h4>
+                        <ul style="font-size: 0.9rem;">
+                            <li>Observational data → correlation, not causation</li>
+                            <li>Can't randomly assign users to cross-post</li>
+                            <li>Selection effects unmeasured</li>
+                            <li>Confounding variables likely present</li>
+                        </ul>
+                    </div>
+
+                    <div class="critique-box">
+                        <h4>6. Representativeness Concerns</h4>
+                        <ul style="font-size: 0.9rem;">
+                            <li><strong>Who's missing?</strong> Older adults, rural populations, non-English speakers</li>
+                            <li><strong>Who's overrepresented?</strong> Tech-savvy, activist voices</li>
+                            <li><strong>Lurkers:</strong> 90% don't post (silent majority)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="key-concept">
+                <h4>Honesty in Reporting</h4>
+                <p>All four papers explicitly discuss these limitations in detail. Transparency builds trust and guides appropriate interpretation of findings.</p>
+            </div>
+        </div>
+        <div class="footer">
+            <span>Data Limitations</span>
+            <span>Slide 17 / 22</span>
+        </div>
+    </div>
+
+    <!-- Slide 16: Ethical Considerations -->
+    <div class="slide">
+        <div class="header">
+            <h1>Ethical Considerations in Social Media Research</h1>
+            <div class="rutgers-logo">Rutgers</div>
+        </div>
+        <div class="content">
+            <h3>Protecting Vulnerable Populations</h3>
+
+            <div class="method-box">
+                <h4>1. Privacy Protection Strategies</h4>
+                <div class="two-col">
+                    <div class="col">
+                        <p><strong>What We Did:</strong></p>
+                        <ul style="font-size: 0.9rem;">
+                            <li>All quotes disguised (Bruckman 2002 guidelines)</li>
+                            <li>No verbatim politically sensitive content (Zambia)</li>
+                            <li>Paraphrased rather than direct quotes when possible</li>
+                            <li>Removed identifying details (locations, names, ages)</li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <p><strong>Why It Matters:</strong></p>
+                        <ul style="font-size: 0.9rem;">
+                            <li>Foster care = family court proceedings (sealed records)</li>
+                            <li>Abuse survivors = potential retraumatization</li>
+                            <li>Zambia politics = potential government monitoring</li>
+                            <li>Small populations = easy re-identification</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="method-box">
+                <h4>2. Representation and Amplification</h4>
+                <div class="box">
+                    <p><strong>Critical Questions to Ask:</strong></p>
+                    <ul style="font-size: 0.9rem;">
+                        <li><strong>Whose voices are we amplifying?</strong> Tech-savvy activists? English speakers?</li>
+                        <li><strong>Whose voices are missing?</strong> Older adults? Rural populations? Non-posters?</li>
+                        <li><strong>What's the risk of reinforcing stereotypes?</strong> "Poor people talk about X"</li>
+                        <li><strong>Could findings be weaponized?</strong> By policymakers? Media? Opposing groups?</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="method-box">
+                <h4>3. Informed Consent in Public Spaces</h4>
+                <div class="comparison-grid">
+                    <div class="comparison-item">
+                        <p><strong>Public Data ≠ Consent</strong></p>
+                        <p style="font-size: 0.85rem;">Just because data is publicly accessible doesn't mean users consented to research use</p>
+                    </div>
+                    <div class="comparison-item">
+                        <p><strong>AoIR 3.0 Guidelines</strong></p>
+                        <p style="font-size: 0.85rem;">Consider vulnerability, sensitivity, potential harm - not just public/private</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="method-box">
+                <h4>4. Need for Triangulation</h4>
+                <p>Social media data alone risks:</p>
+                <ul style="font-size: 0.9rem;">
+                    <li><strong>Reinforcing digital divides</strong> if used for policy without other evidence</li>
+                    <li><strong>Misrepresenting populations</strong> based on vocal minority</li>
+                    <li><strong>Missing context</strong> that interviews/surveys would reveal</li>
+                </ul>
+                <p style="margin-top: 10px;"><strong>Solution:</strong> Combine with surveys, interviews, administrative data, ethnography</p>
+            </div>
+
+            <div class="key-concept">
+                <h4>Ethical Commitment</h4>
+                <p>Use social media data as <strong>exploratory</strong> and <strong>hypothesis-generating</strong>, not as sole basis for claims about vulnerable populations. Always pair with traditional methods when making policy recommendations.</p>
+            </div>
+        </div>
+        <div class="footer">
+            <span>Ethical Considerations</span>
+            <span>Slide 18 / 22</span>
+        </div>
+    </div>
+
+    <!-- Slide 17: Future Directions - Methodological -->
+    <div class="slide">
+        <div class="header">
+            <h1>Future Directions: Methodological Advances</h1>
+            <div class="rutgers-logo">Rutgers</div>
+        </div>
+        <div class="content">
+            <h3>Extending the Mixed-Methods Toolkit</h3>
+
+            <div class="method-box">
+                <h4>1. Multi-Platform Analysis</h4>
+                <div class="two-col">
+                    <div class="col">
+                        <p><strong>Current:</strong> Single platform per study (Reddit OR Twitter)</p>
+                        <p><strong>Future:</strong> Comparative cross-platform analysis</p>
+                        <ul style="font-size: 0.9rem;">
+                            <li>Reddit + Twitter + TikTok + WhatsApp</li>
+                            <li>How does discourse differ by platform?</li>
+                            <li>Do cross-platform users differ?</li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <p><strong>Challenges:</strong></p>
+                        <ul style="font-size: 0.9rem;">
+                            <li>Different APIs, access restrictions</li>
+                            <li>Privacy-respecting data donation needed</li>
+                            <li>WhatsApp/TikTok harder to access</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="method-box">
+                <h4>2. Multimodal Models</h4>
+                <p><strong>Current:</strong> Text-only analysis</p>
+                <p><strong>Future:</strong> Text + Images + Video + Network structure</p>
+                <div class="comparison-grid">
+                    <div class="comparison-item">
+                        <p><strong>Images</strong></p>
+                        <p style="font-size: 0.85rem;">Computer vision for memes, infographics, protest photos</p>
+                    </div>
+                    <div class="comparison-item">
+                        <p><strong>Video</strong></p>
+                        <p style="font-size: 0.85rem;">TikTok analysis, YouTube discourse</p>
+                    </div>
+                    <div class="comparison-item">
+                        <p><strong>Networks</strong></p>
+                        <p style="font-size: 0.85rem;">Who connects which communities?</p>
+                    </div>
+                    <div class="comparison-item">
+                        <p><strong>Audio</strong></p>
+                        <p style="font-size: 0.85rem;">Podcasts, voice messages, emotion</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="method-box">
+                <h4>3. Dynamic Topic Modeling</h4>
+                <p><strong>Current:</strong> Static topics (fit once on full corpus)</p>
+                <p><strong>Future:</strong> Topics that evolve over time</p>
+                <ul style="font-size: 0.9rem;">
+                    <li>How does "foster care" discourse shift 2010 → 2020?</li>
+                    <li>Emergence and decline of topics</li>
+                    <li>Topic merging/splitting over time</li>
+                </ul>
+                <p><strong>Methods:</strong> Dynamic Embedded Topic Model (D-ETM), BERTopic with temporal bins</p>
+            </div>
+
+            <div class="method-box">
+                <h4>4. Causal Inference Methods</h4>
+                <p><strong>Current:</strong> Observational, correlational</p>
+                <p><strong>Future:</strong> Quasi-experimental designs</p>
+                <div class="two-col">
+                    <div class="col">
+                        <p><strong>Difference-in-Differences</strong></p>
+                        <p style="font-size: 0.85rem;">Pre/post policy change, treatment vs. control regions</p>
+                    </div>
+                    <div class="col">
+                        <p><strong>Regression Discontinuity</strong></p>
+                        <p style="font-size: 0.85rem;">Cutoff-based interventions (e.g., wealth thresholds)</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="method-box">
+                <h4>5. Real-Time Analysis</h4>
+                <ul style="font-size: 0.9rem;">
+                    <li><strong>Current:</strong> Retrospective analysis (months/years after)</li>
+                    <li><strong>Future:</strong> Real-time topic detection, trend forecasting</li>
+                    <li><strong>Use cases:</strong> Early warning systems for public health, crisis monitoring</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer">
+            <span>Future Directions - Methods</span>
+            <span>Slide 19 / 22</span>
+        </div>
+    </div>
+
+    <!-- Slide 18: Future Directions - Substantive -->
+    <div class="slide">
+        <div class="header">
+            <h1>Future Directions: Substantive Research</h1>
+            <div class="rutgers-logo">Rutgers</div>
+        </div>
+        <div class="content">
+            <h3>Deepening Understanding of Vulnerable Populations</h3>
+
+            <div class="method-box">
+                <h4>1. Interview Studies with Key Stakeholders</h4>
+                <div class="two-col">
+                    <div class="col">
+                        <p><strong>Cross-Posters</strong></p>
+                        <ul style="font-size: 0.9rem;">
+                            <li>Why do they bridge communities?</li>
+                            <li>What motivates boundary-spanning?</li>
+                            <li>How do they manage dual identities?</li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <p><strong>Moderators</strong></p>
+                        <ul style="font-size: 0.9rem;">
+                            <li>How do they manage sensitive content?</li>
+                            <li>What rules govern cross-posting?</li>
+                            <li>Challenges of vulnerable communities?</li>
+                        </ul>
+                    </div>
+                </div>
+                <p style="margin-top: 10px;"><strong>Lurkers:</strong> Why do 90% not post? What do they gain from reading?</p>
+            </div>
+
+            <div class="method-box">
+                <h4>2. Longitudinal Individual Trajectories</h4>
+                <p><strong>Current:</strong> Cross-sectional snapshots</p>
+                <p><strong>Future:</strong> Track individuals over time</p>
+                <div class="box">
+                    <p><strong>Foster Care Example:</strong></p>
+                    <ul style="font-size: 0.9rem;">
+                        <li>Do abuse survivors who become foster parents change discourse patterns?</li>
+                        <li>How does trauma recovery manifest in language use over 5+ years?</li>
+                        <li>When/why do people stop cross-posting?</li>
+                    </ul>
+                </div>
+                <div class="box">
+                    <p><strong>Zambia Example:</strong></p>
+                    <ul style="font-size: 0.9rem;">
+                        <li>Do individuals shift topics as wealth changes?</li>
+                        <li>Migration patterns reflected in discourse?</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="method-box">
+                <h4>3. Network Analysis of Cross-Posting</h4>
+                <p><strong>Research Questions:</strong></p>
+                <ul style="font-size: 0.9rem;">
+                    <li>Who connects which communities? (Bridge nodes)</li>
+                    <li>Are there "super-connectors" across multiple communities?</li>
+                    <li>How do information cascades flow across boundaries?</li>
+                    <li>Do cross-posters form their own sub-community?</li>
+                </ul>
+                <p><strong>Methods:</strong> Social network analysis, community detection algorithms, exponential random graph models (ERGMs)</p>
+            </div>
+
+            <div class="method-box">
+                <h4>4. Direct Community Engagement & Validation</h4>
+                <div class="two-col">
+                    <div class="col">
+                        <p><strong>Participatory Design</strong></p>
+                        <ul style="font-size: 0.9rem;">
+                            <li>Co-design research questions with communities</li>
+                            <li>Member checking on findings</li>
+                            <li>Community advisory boards</li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <p><strong>Data Return</strong></p>
+                        <ul style="font-size: 0.9rem;">
+                            <li>Share findings back with participants</li>
+                            <li>Actionable insights for communities</li>
+                            <li>Platform for advocacy</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="method-box">
+                <h4>5. Comparative International Studies</h4>
+                <p><strong>Current:</strong> US (Reddit) and Zambia (Twitter)</p>
+                <p><strong>Future:</strong> Systematic cross-national comparisons</p>
+                <ul style="font-size: 0.9rem;">
+                    <li>How does foster care discourse differ: US vs. UK vs. Australia?</li>
+                    <li>Development discourse across Sub-Saharan Africa</li>
+                    <li>Cultural differences in discussing trauma/stigma</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer">
+            <span>Future Directions - Substantive</span>
+            <span>Slide 20 / 22</span>
+        </div>
+    </div>
+
+    <!-- Slide 19: Practical Recommendations -->
+    <div class="slide">
+        <div class="header">
+            <h1>Practical Recommendations for Researchers</h1>
+            <div class="rutgers-logo">Rutgers</div>
+        </div>
+        <div class="content">
+            <h3>Actionable Guidance for Your Own Research</h3>
+
+            <div class="method-box">
+                <h4>1. Study Design Phase</h4>
+                <div class="two-col">
+                    <div class="col">
+                        <p><strong>✓ DO:</strong></p>
+                        <ul style="font-size: 0.9rem;">
+                            <li>Start with clear research questions (methods follow questions, not vice versa)</li>
+                            <li>Plan qualitative phase from the start (not afterthought)</li>
+                            <li>Budget 2-3× more time than expected for coding</li>
+                            <li>Consider vulnerability of population upfront</li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <p><strong>✗ DON'T:</strong></p>
+                        <ul style="font-size: 0.9rem;">
+                            <li>Collect data before IRB approval (even public data)</li>
+                            <li>Assume "public" = "consented to research"</li>
+                            <li>Use social media data alone for vulnerable populations</li>
+                            <li>Skip literature review on ethical debates in your domain</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="method-box">
+                <h4>2. Data Collection Phase</h4>
+                <div class="box">
+                    <p><strong>Sample Size Considerations:</strong></p>
+                    <ul style="font-size: 0.9rem;">
+                        <li>Topic modeling: Minimum ~1,000 documents, better with 10,000+</li>
+                        <li>Classification: Depends on class imbalance (our 106 cross-posters was challenging)</li>
+                        <li>Time series: Need enough data points before/after event (we used 32 months)</li>
+                    </ul>
+                </div>
+                <div class="box">
+                    <p><strong>Data Quality Checks:</strong></p>
+                    <ul style="font-size: 0.9rem;">
+                        <li>Remove bots (automated responses, identical posts)</li>
+                        <li>Handle deleted/removed content appropriately</li>
+                        <li>Document preprocessing decisions (stemming? lowercasing?)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="method-box">
+                <h4>3. Analysis Phase</h4>
+                <ol style="font-size: 0.9rem;">
+                    <li><strong>Always report sample characteristics and limitations</strong> (who's included/excluded)</li>
+                    <li><strong>Test multiple models/methods</strong> (we tested 18-25 variants per study)</li>
+                    <li><strong>Use held-out validation sets</strong> (not just training performance)</li>
+                    <li><strong>Triangulate findings</strong> (if only one method shows effect, be skeptical)</li>
+                    <li><strong>Read the actual data</strong> (don't rely solely on computational summaries)</li>
+                </ol>
+            </div>
+
+            <div class="method-box">
+                <h4>4. Interpretation Phase</h4>
+                <div class="comparison-grid">
+                    <div class="comparison-item">
+                        <p><strong>Appropriate Claims</strong></p>
+                        <ul style="font-size: 0.8rem;">
+                            <li>"Among Reddit users who post about foster care..."</li>
+                            <li>"These patterns suggest..."</li>
+                            <li>"This is consistent with..."</li>
+                        </ul>
+                    </div>
+                    <div class="comparison-item">
+                        <p><strong>Inappropriate Claims</strong></p>
+                        <ul style="font-size: 0.8rem;">
+                            <li>"All foster parents believe..."</li>
+                            <li>"This proves that..."</li>
+                            <li>"Foster care policy should..."</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="method-box">
+                <h4>5. Writing Phase</h4>
+                <ul style="font-size: 0.9rem;">
+                    <li><strong>Transparency:</strong> Share code, codebooks (when ethically appropriate)</li>
+                    <li><strong>Limitations section:</strong> Be honest about what you can't claim</li>
+                    <li><strong>Positionality:</strong> Acknowledge your own background/biases</li>
+                    <li><strong>Stakeholder review:</strong> When possible, get feedback from affected communities</li>
+                </ul>
+            </div>
+
+            <div class="key-concept">
+                <strong>Golden Rule:</strong> Use social media data for exploration and hypothesis generation, not just confirmation. Pair with traditional methods (surveys, interviews, admin data) for robust conclusions.
+            </div>
+        </div>
+        <div class="footer">
+            <span>Practical Recommendations</span>
+            <span>Slide 21 / 22</span>
+        </div>
+    </div>
+
+    <!-- Slide 20: Conclusion & Discussion -->
+    <div class="slide">
+        <div class="header">
+            <h1>Conclusion: Toward Ethical Mixed-Methods Research</h1>
+            <div class="rutgers-logo">Rutgers</div>
+        </div>
+        <div class="content">
+            <h3>Key Takeaways</h3>
+
+            <div class="method-box">
+                <h4>1. The Core Tension</h4>
+                <div class="key-concept">
+                    <p style="font-size: 1.1rem;">Social media offers <strong>unprecedented access</strong> to authentic discourse about stigmatized topics in hard-to-reach populations...</p>
+                    <p style="font-size: 1.1rem; margin-top: 10px;">...but introduces <strong>sampling biases</strong> and <strong>ethical complexities</strong> that must be carefully navigated.</p>
+                </div>
+            </div>
+
+            <div class="two-col">
+                <div class="col">
+                    <div class="method-box">
+                        <h4>What We've Demonstrated</h4>
+                        <ul style="font-size: 0.95rem;">
+                            <li><strong>Computational filtering</strong> makes large-scale data tractable</li>
+                            <li><strong>Qualitative interpretation</strong> ensures substantive meaning</li>
+                            <li><strong>Statistical validation</strong> separates signal from noise</li>
+                            <li><strong>Triangulation</strong> builds robust findings</li>
+                            <li><strong>Transparency</strong> about limitations builds trust</li>
+                        </ul>
+                    </div>
+
+                    <div class="method-box">
+                        <h4>Across Four Papers</h4>
+                        <table class="data-table" style="font-size: 0.8rem;">
+                            <tr>
+                                <th>Paper</th>
+                                <th>Key Finding</th>
+                            </tr>
+                            <tr>
+                                <td>Foster Care</td>
+                                <td>Cross-posters serve valuable boundary-spanning roles</td>
+                            </tr>
+                            <tr>
+                                <td>Zambia Poverty</td>
+                                <td>7 topics predict village wealth (R²=61%)</td>
+                            </tr>
+                            <tr>
+                                <td>Zambia Temporal</td>
+                                <td>Can distinguish ephemeral vs. durable discourse</td>
+                            </tr>
+                            <tr>
+                                <td>Foster COVID</td>
+                                <td>3 topics significantly shifted during pandemic</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="method-box">
+                        <h4>The Path Forward</h4>
+                        <ol style="font-size: 0.95rem;">
+                            <li><strong>Don't abandon</strong> social media research—it offers unique insights</li>
+                            <li><strong>Don't use it alone</strong>—combine with traditional methods</li>
+                            <li><strong>Prioritize ethics</strong>—protect vulnerable populations</li>
+                            <li><strong>Be transparent</strong>—report limitations honestly</li>
+                            <li><strong>Stay humble</strong>—these are patterns, not universal truths</li>
+                        </ol>
+                    </div>
+
+                    <div class="box" style="background: #f0f8ff; border-left-color: #005f86;">
+                        <h4>For PhD Students</h4>
+                        <ul style="font-size: 0.9rem;">
+                            <li>Mixed methods = competitive advantage</li>
+                            <li>Learn both computational AND qualitative skills</li>
+                            <li>Collaborate across disciplinary boundaries</li>
+                            <li>Always center the people in your data</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 40px;">
+                <h2 style="font-size: 2.5rem; color: #333;">Questions?</h2>
+                <p style="font-size: 1.3rem; margin-top: 20px;"><strong>Tawfiq Ammari, PhD</strong></p>
+                <p style="font-size: 1.1rem;"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bcc8ddcbdad5cd92ddd1d1ddced5fccec9c8dbd9cecf92d9d8c9">[email&#160;protected]</a></p>
+                
+                <div style="margin-top: 30px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+                    <span style="background: #eee; padding: 10px 20px; border-radius: 20px; font-size: 0.95rem;">BERTopic</span>
+                    <span style="background: #eee; padding: 10px 20px; border-radius: 20px; font-size: 0.95rem;">PELT</span>
+                    <span style="background: #eee; padding: 10px 20px; border-radius: 20px; font-size: 0.95rem;">Mixed Methods</span>
+                    <span style="background: #eee; padding: 10px 20px; border-radius: 20px; font-size: 0.95rem;">Qualitative Coding</span>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <span>Thank you! | Rutgers School of Communication and Information</span>
+            <span>Slide 22 / 22</span>
+        </div>
+    </div>
+
+</div>
+
+<div class="controls">
+    <button id="prevBtn">← Previous</button>
+    <span id="slideCounter">1 / 22</span>
+    <button id="nextBtn">Next →</button>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    const slides = document.querySelectorAll('.slide');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const counter = document.getElementById('slideCounter');
+    let currentSlide = 0;
+
+    function updateSlide() {
+        slides.forEach((s, i) => {
+            s.classList.remove('active');
+            if(i === currentSlide) s.classList.add('active');
+        });
+        
+        counter.textContent = `${currentSlide + 1} / ${slides.length}`;
+        prevBtn.disabled = currentSlide === 0;
+        nextBtn.disabled = currentSlide === slides.length - 1;
+    }
+
+    prevBtn.addEventListener('click', () => {
+        if(currentSlide > 0) {
+            currentSlide--;
+            updateSlide();
+        }
+    });
+
+    nextBtn.addEventListener('click', () => {
+        if(currentSlide < slides.length - 1) {
+            currentSlide++;
+            updateSlide();
+        }
+    });
+
+    // Keyboard Navigation
+    document.addEventListener('keydown', (e) => {
+        if(e.key === 'ArrowRight' || e.key === ' ') {
+            if(currentSlide < slides.length - 1) {
+                currentSlide++;
+                updateSlide();
+            }
+            e.preventDefault();
+        } else if(e.key === 'ArrowLeft') {
+            if(currentSlide > 0) {
+                currentSlide--;
+                updateSlide();
+            }
+            e.preventDefault();
+        }
+    });
+
+    // Initialize
+    updateSlide();
+	
+</script>
+</script>
+<script type="text/babel">
+    const Timeline = () => {
+        const styles = {
+            container: { 
+                width: '100%', 
+                height: '100%', 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'center',
+                fontFamily: "'Segoe UI', sans-serif"
+            },
+            svg: { width: '100%', height: '100%', overflow: 'visible' },
+            text: { fontSize: '12px', fill: '#333', textAnchor: 'middle' },
+            title: { fontSize: '14px', fontWeight: 'bold', fill: '#cc0033', textAnchor: 'middle' },
+            line: { stroke: '#999', strokeWidth: 2 },
+            circle: { fill: '#fff', stroke: '#005f86', strokeWidth: 3 },
+            meetingCircle: { fill: '#fff', stroke: '#cc0033', strokeWidth: 3 }
+        };
+
+        return (
+            <div style={styles.container}>
+                <svg style={styles.svg} viewBox="0 0 800 150">
+                    {/* Main Connecting Line */}
+                    <line x1="100" y1="75" x2="700" y2="75" style={styles.line} />
+
+                    {/* Round 1 */}
+                    <circle cx="100" cy="75" r="20" style={styles.circle} />
+                    <text x="100" y="115" style={styles.title}>Round 1</text>
+                    <text x="100" y="135" style={styles.text}>Exploration (25 tweets)</text>
+
+                    {/* Meeting 1 */}
+                    <circle cx="250" cy="75" r="15" style={styles.meetingCircle} />
+                    <text x="250" y="115" style={styles.title}>Meeting</text>
+                    <text x="250" y="135" style={styles.text}>Consolidate Codes</text>
+
+                    {/* Round 2 */}
+                    <circle cx="400" cy="75" r="20" style={styles.circle} />
+                    <text x="400" y="115" style={styles.title}>Round 2</text>
+                    <text x="400" y="135" style={styles.text}>Refinement (50 tweets)</text>
+
+                    {/* Meeting 2 */}
+                    <circle cx="550" cy="75" r="15" style={styles.meetingCircle} />
+                    <text x="550" y="115" style={styles.title}>Meeting</text>
+                    <text x="550" y="135" style={styles.text}>Refine Definitions</text>
+
+                    {/* Round 3 */}
+                    <circle cx="700" cy="75" r="20" style={styles.circle} />
+                    <text x="700" y="115" style={styles.title}>Round 3</text>
+                    <text x="700" y="135" style={styles.text}>Finalization (25 tweets)</text>
+                </svg>
+            </div>
+        );
+    };
+
+    ReactDOM.render(<Timeline />, document.getElementById('timeline_root'));
+</script>
+</body>
+</html>
